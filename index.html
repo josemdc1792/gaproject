@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Copper & Grain Brewing Co.</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Bebas+Neue&display=swap" rel="stylesheet"/>
+
+
+  <style>
+    :root {
+      --brown-deep:    #2C1A0E;
+      --brown-mid:     #5C3317;
+      --brown-warm:    #8B4513;
+      --amber:         #C8861A;
+      --amber-light:   #E8A830;
+      --gold:          #F5C842;
+      --cream:         #FDF5E6;
+      --cream-dark:    #F0E0C0;
+      --white:         #FFFDF8;
+      --text-dark:     #1A0E05;
+      --text-mid:      #4A2C10;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    /* ───── NOISE TEXTURE OVERLAY ───── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+    }
+
+    /* ───── HEADER & NAV ───── */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(44, 26, 14, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--amber);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      transition: background 0.3s;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--cream); font-weight: 400; font-style: italic; }
+
+    nav { display: flex; gap: 2.2rem; align-items: center; }
+
+    nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cream-dark);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--amber-light);
+      transition: width 0.3s;
+    }
+    nav a:hover { color: var(--gold); }
+    nav a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--amber);
+      color: var(--brown-deep) !important;
+      padding: 7px 20px;
+      border-radius: 2px;
+      font-weight: 700 !important;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--gold) !important; }
+    .nav-cta::after { display: none !important; }
+
+    /* ───── SECTION BASE ───── */
+    section { width: 100%; }
+
+    /* ───── SECTION 1: HERO ───── */
+    #presentation {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Bartender SVG Background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(44,26,14,0.78) 0%,
+        rgba(92,51,23,0.55) 45%,
+        rgba(200,134,26,0.18) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 0 2rem;
+      animation: fadeUp 1.2s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(30px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.35em;
+      font-size: 0.9rem;
+      color: var(--amber-light);
+      margin-bottom: 1rem;
+      animation: fadeUp 1.2s 0.2s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.3em;
+      animation: fadeUp 1.2s 0.3s ease both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: var(--cream-dark);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 1.2s 0.45s ease both;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      background: transparent;
+      border: 2px solid var(--amber-light);
+      color: var(--cream);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 14px 40px;
+      text-decoration: none;
+      transition: all 0.3s;
+      animation: fadeUp 1.2s 0.6s ease both;
+    }
+    .hero-btn:hover {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: var(--brown-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,134,26,0.35);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--cream-dark);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(8px); }
+    }
+    .hero-scroll svg { width: 18px; }
+
+    /* ───── SECTION 2: BEERS ───── */
+    #beers {
+      background: var(--brown-deep);
+      padding: 120px 5vw 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #beers::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,134,26,0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .section-label {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.35em;
+      font-size: 0.8rem;
+      color: var(--amber);
+      margin-bottom: 0.8rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 3.5rem;
+      color: var(--cream);
+      line-height: 1.1;
+    }
+
+    .beers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .beer-card {
+      background: linear-gradient(160deg, var(--brown-mid), var(--brown-deep));
+      border: 1px solid rgba(200,134,26,0.25);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.35s, box-shadow 0.35s;
+      cursor: default;
+      position: relative;
+    }
+    .beer-card:hover {
+      transform: translateY(-8px) rotate(-0.4deg);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(200,134,26,0.15);
+    }
+    .beer-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+    }
+
+    .beer-illustration {
+      width: 100%;
+      height: 240px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .beer-info { padding: 1.8rem 1.8rem 2rem; }
+
+    .beer-badge {
+      display: inline-block;
+      background: rgba(200,134,26,0.2);
+      border: 1px solid var(--amber);
+      color: var(--amber-light);
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.2em;
+      font-size: 0.7rem;
+      padding: 2px 10px;
+      margin-bottom: 0.8rem;
+    }
+
+    .beer-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+
+    .beer-desc {
+      font-size: 1rem;
+      color: rgba(240,224,192,0.75);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .beer-abv {
+      margin-top: 1.2rem;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      color: var(--amber);
+    }
+
+    /* ───── SECTION 3: VISION ───── */
+    #vision {
+      background: var(--cream);
+      padding: 120px 5vw;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vision-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .vision-deco {
+      text-align: center;
+      position: relative;
+    }
+
+    .vision-deco-circle {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 2px solid var(--amber);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .vision-deco-circle::before {
+      content: '';
+      position: absolute;
+      inset: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,134,26,0.3);
+    }
+
+    .vision-year {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .vision-founded { font-size: 0.85rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brown-mid); }
+
+    .vision-rule {
+      width: 60px;
+      height: 2px;
+      background: var(--amber);
+      margin: 1.5rem 0;
+    }
+
+    .vision-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900;
+      color: var(--brown-deep);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+    .vision-title em { font-style: italic; color: var(--amber); }
+
+    .vision-text {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text-mid);
+      font-weight: 300;
+      margin-bottom: 1.2rem;
+    }
+
+    .vision-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--brown-warm);
+      border-left: 3px solid var(--amber);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+      line-height: 1.6;
+    }
+
+    /* ───── SECTION 4: REVIEWS ───── */
+    #reviews {
+      background: var(--brown-mid);
+      padding: 120px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #reviews .section-label { color: var(--amber-light); }
+    #reviews .section-title { color: var(--cream); margin-bottom: 4rem; }
+
+    .reviews-wrapper {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 80px;
+    }
+
+    .reviews-track-outer {
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    .reviews-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    .review-card {
+      min-width: 100%;
+      background: linear-gradient(135deg, rgba(255,253,248,0.06), rgba(255,253,248,0.02));
+      border: 1px solid rgba(200,134,26,0.3);
+      border-radius: 4px;
+      padding: 3rem 3.5rem;
+      position: relative;
+    }
+    .review-card::before {
+      content: '"';
+      font-family: 'Playfair Display', serif;
+      font-size: 8rem;
+      color: rgba(200,134,26,0.15);
+      position: absolute;
+      top: -10px; left: 20px;
+      line-height: 1;
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 1.2rem;
+    }
+
+    .star { color: var(--gold); font-size: 1.1rem; }
+    .star-empty { color: rgba(245,200,66,0.25); font-size: 1.1rem; }
+
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--cream-dark);
+      line-height: 1.8;
+      margin-bottom: 1.8rem;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .review-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 2px solid var(--amber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--cream);
+      flex-shrink: 0;
+    }
+
+    .review-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cream);
+    }
+    .review-location {
+      font-size: 0.85rem;
+      color: rgba(240,224,192,0.55);
+      letter-spacing: 0.08em;
+    }
+
+    .review-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: rgba(200,134,26,0.15);
+      border: 1px solid var(--amber);
+      color: var(--amber-light);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s;
+      z-index: 10;
+    }
+    .review-nav:hover {
+      background: var(--amber);
+      color: var(--brown-deep);
+    }
+    .review-nav.prev { left: 10px; }
+    .review-nav.next { right: 10px; }
+
+    .reviews-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 2.5rem;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(200,134,26,0.3);
+      border: 1px solid rgba(200,134,26,0.5);
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .dot.active {
+      background: var(--amber);
+      transform: scale(1.3);
+    }
+
+    /* ───── FOOTER ───── */
+    footer {
+      background: var(--brown-deep);
+      border-top: 1px solid rgba(200,134,26,0.3);
+      padding: 60px 5vw 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(200,134,26,0.15);
+    }
+
+    .footer-brand .logo { font-size: 1.4rem; display: block; margin-bottom: 1rem; }
+
+    .footer-tagline {
+      font-size: 0.95rem;
+      color: rgba(240,224,192,0.6);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social { display: flex; gap: 12px; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,134,26,0.4);
+      color: var(--amber-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--amber); color: var(--brown-deep); border-color: var(--amber); }
+
+    .footer-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.2em;
+      font-size: 0.85rem;
+      color: var(--amber);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a {
+      color: rgba(240,224,192,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--amber-light); }
+
+    .footer-contact p {
+      color: rgba(240,224,192,0.6);
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .footer-contact span { color: var(--amber); flex-shrink: 0; }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 1.5rem auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: rgba(240,224,192,0.3);
+    }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 900px) {
+      .vision-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .vision-deco { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      nav { gap: 1.2rem; }
+    }
+    @media (max-width: 600px) {
+      nav a { display: none; }
+      nav a.nav-cta { display: inline-block; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .reviews-wrapper { padding: 0 50px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header id="site-header">
+  <a href="#presentation" class="logo">
+    Copper <span>&</span> Grain
+  </a>
+  <nav>
+    <a href="#presentation">Home</a>
+    <a href="#beers"       >Our Beers</a>
+    <a href="#vision"      >Our Story</a>
+    <a href="#reviews"     >Reviews</a>
+    <a href="#footer"       class="nav-cta">Contact Us</a>
+  </nav>
+</header>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 1 — PRESENTATION / HERO
+═══════════════════════════════════════ -->
+<section id="presentation" aria-label="Hero presentation">
+
+  <!-- Bartender SVG Background -->
+  <div class="hero-bg">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+      <!-- BAR BACKGROUND -->
+      <rect width="1440" height="900" fill="#1A0A03"/>
+      <!-- Background warm light glow -->
+      <ellipse cx="720" cy="200" rx="500" ry="280" fill="rgba(200,134,26,0.08)"/>
+      <!-- Bar shelf back wall -->
+      <rect x="0" y="0" width="1440" height="900" fill="url(#wallGrad)"/>
+      <defs>
+        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1A0A03"/>
+          <stop offset="60%" stop-color="#2C1208"/>
+          <stop offset="100%" stop-color="#0D0604"/>
+        </linearGradient>
+        <linearGradient id="barTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5C3317"/>
+          <stop offset="100%" stop-color="#3A1E0C"/>
+        </linearGradient>
+        <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C68642"/>
+          <stop offset="100%" stop-color="#A0622A"/>
+        </linearGradient>
+        <linearGradient id="beerGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F5C842" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#C8861A" stop-opacity="0.85"/>
+        </linearGradient>
+        <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0.25)"/>
+          <stop offset="40%" stop-color="rgba(255,255,255,0.05)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0.15)"/>
+        </linearGradient>
+        <linearGradient id="apronGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3A1E0C"/>
+          <stop offset="100%" stop-color="#2C1208"/>
+        </linearGradient>
+        <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#F5C842" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#F5C842" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- BACK SHELVES -->
+      <rect x="200" y="120" width="1040" height="8" rx="2" fill="#4A2510"/>
+      <rect x="200" y="260" width="1040" height="8" rx="2" fill="#4A2510"/>
+      <rect x="200" y="400" width="1040" height="8" rx="2" fill="#4A2510"/>
+
+      <!-- BOTTLES ON SHELF 1 -->
+      <g opacity="0.85">
+        <!-- Bottle group repeated -->
+        <rect x="240" y="70" width="22" height="50" rx="4" fill="#1A4A1A"/>
+        <rect x="246" y="62" width="10" height="12" rx="2" fill="#1A4A1A"/>
+        <rect x="270" y="72" width="22" height="48" rx="4" fill="#8B1A1A"/>
+        <rect x="276" y="64" width="10" height="12" rx="2" fill="#8B1A1A"/>
+        <rect x="300" y="68" width="22" height="52" rx="4" fill="#2A3A6A"/>
+        <rect x="306" y="60" width="10" height="14" rx="2" fill="#2A3A6A"/>
+        <rect x="340" y="74" width="20" height="46" rx="4" fill="#4A2510"/>
+        <rect x="345" y="66" width="10" height="12" rx="2" fill="#4A2510"/>
+        <rect x="380" y="68" width="22" height="52" rx="4" fill="#1A4A1A"/>
+        <rect x="500" y="70" width="22" height="50" rx="4" fill="#8B1A1A"/>
+        <rect x="540" y="68" width="22" height="52" rx="4" fill="#2A3A6A"/>
+        <rect x="580" y="72" width="20" height="48" rx="4" fill="#4A2510"/>
+        <rect x="620" y="68" width="22" height="52" rx="4" fill="#1A4A1A"/>
+        <rect x="660" y="70" width="22" height="50" rx="4" fill="#8B1A1A"/>
+        <rect x="700" y="74" width="20" height="46" rx="4" fill="#2A3A6A"/>
+        <rect x="780" y="68" width="22" height="52" rx="4" fill="#4A2510"/>
+        <rect x="830" y="70" width="22" height="50" rx="4" fill="#1A4A1A"/>
+        <rect x="900" y="72" width="20" height="48" rx="4" fill="#8B1A1A"/>
+        <rect x="950" y="68" width="22" height="52" rx="4" fill="#2A3A6A"/>
+        <rect x="1000" y="70" width="22" height="50" rx="4" fill="#4A2510"/>
+        <rect x="1050" y="74" width="20" height="46" rx="4" fill="#1A4A1A"/>
+        <rect x="1100" y="68" width="22" height="52" rx="4" fill="#8B1A1A"/>
+        <rect x="1150" y="70" width="22" height="50" rx="4" fill="#2A3A6A"/>
+        <rect x="1190" y="68" width="22" height="52" rx="4" fill="#4A2510"/>
+      </g>
+
+      <!-- HANGING LAMPS -->
+      <line x1="400" y1="0" x2="400" y2="430" stroke="#2C1A0E" stroke-width="2"/>
+      <ellipse cx="400" cy="430" rx="40" ry="16" fill="#8B4513"/>
+      <ellipse cx="400" cy="430" rx="28" ry="10" fill="#C8861A" opacity="0.9"/>
+      <ellipse cx="400" cy="430" rx="120" ry="80" fill="url(#lampGlow)"/>
+
+      <line x1="1040" y1="0" x2="1040" y2="430" stroke="#2C1A0E" stroke-width="2"/>
+      <ellipse cx="1040" cy="430" rx="40" ry="16" fill="#8B4513"/>
+      <ellipse cx="1040" cy="430" rx="28" ry="10" fill="#C8861A" opacity="0.9"/>
+      <ellipse cx="1040" cy="430" rx="120" ry="80" fill="url(#lampGlow)"/>
+
+      <!-- BAR COUNTER -->
+      <rect x="0" y="680" width="1440" height="220" fill="url(#barTop)"/>
+      <rect x="0" y="676" width="1440" height="12" rx="3" fill="#8B4513"/>
+      <!-- Bar top shine -->
+      <rect x="0" y="676" width="1440" height="3" fill="rgba(245,200,66,0.25)"/>
+
+      <!-- ===== BARTENDER ===== -->
+      <!-- Body / Torso -->
+      <rect x="640" y="440" width="160" height="240" rx="8" fill="url(#apronGrad)"/>
+
+      <!-- Shirt collar white -->
+      <polygon points="700,440 720,490 740,440" fill="#F5EDE0"/>
+      <polygon points="700,440 690,500 720,490" fill="#E8D5B0"/>
+      <polygon points="740,440 750,500 720,490" fill="#F5EDE0"/>
+
+      <!-- Apron straps -->
+      <rect x="695" y="440" width="6" height="60" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <rect x="739" y="440" width="6" height="60" rx="2" fill="rgba(255,255,255,0.15)"/>
+      <!-- Apron pocket -->
+      <rect x="690" y="540" width="60" height="50" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+      <!-- Suspenders / Vest details -->
+      <rect x="660" y="440" width="10" height="200" rx="3" fill="#5C3317"/>
+      <rect x="770" y="440" width="10" height="200" rx="3" fill="#5C3317"/>
+
+      <!-- LEFT ARM (extended forward to pour) -->
+      <rect x="480" y="450" width="164" height="40" rx="20" fill="url(#skinGrad)" transform="rotate(-8, 480, 470)"/>
+      <!-- Left hand -->
+      <ellipse cx="492" cy="510" rx="22" ry="18" fill="url(#skinGrad)" transform="rotate(-8,492,510)"/>
+      <!-- fingers -->
+      <rect x="472" y="500" width="10" height="22" rx="5" fill="#C68642" transform="rotate(-15,472,500)"/>
+      <rect x="482" y="497" width="10" height="25" rx="5" fill="#C68642" transform="rotate(-8,482,497)"/>
+      <rect x="493" y="498" width="10" height="24" rx="5" fill="#C68642" transform="rotate(0,493,498)"/>
+      <rect x="503" y="500" width="10" height="22" rx="5" fill="#C68642" transform="rotate(8,503,500)"/>
+
+      <!-- RIGHT ARM (slightly back, casual) -->
+      <rect x="796" y="455" width="120" height="38" rx="19" fill="url(#skinGrad)" transform="rotate(12, 796, 474)"/>
+      <ellipse cx="910" cy="500" rx="20" ry="16" fill="url(#skinGrad)"/>
+      <!-- cuff -->
+      <rect x="796" y="453" width="18" height="40" rx="8" fill="#3A1E0C"/>
+
+      <!-- NECK -->
+      <rect x="710" y="390" width="40" height="60" rx="6" fill="url(#skinGrad)"/>
+
+      <!-- HEAD -->
+      <ellipse cx="730" cy="350" rx="62" ry="68" fill="url(#skinGrad)"/>
+
+      <!-- HAIR -->
+      <ellipse cx="730" cy="295" rx="62" ry="30" fill="#2C1208"/>
+      <rect x="668" y="300" width="20" height="40" rx="5" fill="#2C1208"/>
+      <rect x="786" y="300" width="20" height="40" rx="5" fill="#2C1208"/>
+      <!-- Side part -->
+      <path d="M680 295 Q730 270 786 295" fill="#2C1208"/>
+
+      <!-- FACE -->
+      <!-- Eyes -->
+      <ellipse cx="710" cy="340" rx="8" ry="9" fill="#1A0E05"/>
+      <ellipse cx="750" cy="340" rx="8" ry="9" fill="#1A0E05"/>
+      <ellipse cx="712" cy="338" rx="3" ry="3" fill="white" opacity="0.6"/>
+      <ellipse cx="752" cy="338" rx="3" ry="3" fill="white" opacity="0.6"/>
+      <!-- Eyebrows -->
+      <path d="M700 328 Q710 322 722 326" stroke="#2C1208" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M738 326 Q750 322 762 328" stroke="#2C1208" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Smile -->
+      <path d="M712 368 Q730 382 748 368" stroke="#8B4513" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <!-- Mustache -->
+      <path d="M712 358 Q721 365 730 360 Q739 365 748 358" fill="#2C1208"/>
+      <!-- Nose -->
+      <path d="M726 348 Q722 358 726 362 Q730 365 734 362 Q738 358 734 348" fill="none" stroke="#A0622A" stroke-width="1.5"/>
+      <!-- Ear -->
+      <ellipse cx="668" cy="350" rx="10" ry="14" fill="#C68642"/>
+      <ellipse cx="792" cy="350" rx="10" ry="14" fill="#C68642"/>
+
+      <!-- BOW TIE -->
+      <polygon points="715,430 730,440 745,430 730,422" fill="#8B1A1A"/>
+      <circle cx="730" cy="430" r="5" fill="#6B0A0A"/>
+
+      <!-- ===== BEER GLASS being poured ===== -->
+      <!-- Glass body (trapezoidal) -->
+      <path d="M488 480 L510 660 L560 660 L582 480 Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+      <!-- Beer fill -->
+      <path d="M492 510 L511 658 L559 658 L578 510 Z" fill="url(#beerGrad)" opacity="0.88"/>
+      <!-- Foam head -->
+      <ellipse cx="535" cy="510" rx="45" ry="18" fill="rgba(255,253,248,0.95)"/>
+      <ellipse cx="510" cy="505" rx="20" ry="12" fill="rgba(255,253,248,0.8)"/>
+      <ellipse cx="558" cy="507" rx="16" ry="10" fill="rgba(255,253,248,0.7)"/>
+      <!-- Glass handle -->
+      <path d="M582 540 Q620 540 620 580 Q620 620 582 620" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="10" stroke-linecap="round"/>
+      <!-- Glass shine -->
+      <line x1="500" y1="490" x2="510" y2="640" stroke="rgba(255,255,255,0.2)" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- Pour stream from tap -->
+      <path d="M540 430 Q536 460 532 480" stroke="rgba(200,160,40,0.7)" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <!-- Tap handle -->
+      <rect x="528" y="400" width="24" height="40" rx="6" fill="#8B4513"/>
+      <ellipse cx="540" cy="398" rx="18" ry="8" fill="#5C3317"/>
+      <rect x="534" y="406" width="12" height="5" fill="#C8861A"/>
+
+      <!-- BAR TOP ITEMS: coaster, nuts bowl -->
+      <ellipse cx="400" cy="685" rx="35" ry="8" fill="#3A1E0C"/>
+      <ellipse cx="400" cy="682" rx="35" ry="8" fill="#4A2510"/>
+      <!-- Coaster label -->
+      <ellipse cx="400" cy="682" rx="28" ry="6" fill="rgba(200,134,26,0.3)"/>
+
+      <!-- Small beer mug on bar -->
+      <rect x="870" y="640" width="40" height="44" rx="4" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <rect x="872" y="648" width="36" height="34" rx="3" fill="rgba(200,134,26,0.6)"/>
+      <ellipse cx="890" cy="648" rx="20" ry="7" fill="rgba(255,253,248,0.9)"/>
+      <path d="M910 652 Q924 652 924 665 Q924 678 910 678" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="7" stroke-linecap="round"/>
+
+      <!-- Ambient floor gradient -->
+      <rect x="0" y="676" width="1440" height="224" fill="url(#floorGrad)"/>
+      <defs>
+        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="transparent"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.5)"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Est. 1987 · Hand-crafted in Denver, CO</p>
+    <h1 class="hero-title">Copper <em>&</em><br/>Grain</h1>
+    <p class="hero-subtitle">Where every pint tells a story worth savoring.</p>
+    <a href="#beers"
+       class="hero-btn"
+      
+      >
+      Explore Our Beers
+    </a>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 2 — OUR BEERS
+═══════════════════════════════════════ -->
+<section id="beers" aria-label="Our beers">
+  <p class="section-label">On Tap</p>
+  <h2 class="section-title">Our Finest Brews</h2>
+
+  <div class="beers-grid">
+
+    <!-- Beer 1: Amber Harvest Ale -->
+    <article class="beer-card">
+      <div class="beer-illustration">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" width="140" height="200">
+          <defs>
+            <linearGradient id="amber1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#F5C842"/>
+              <stop offset="100%" stop-color="#C8861A"/>
+            </linearGradient>
+            <linearGradient id="glass1" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.3)"/>
+              <stop offset="50%" stop-color="rgba(255,255,255,0.05)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.2)"/>
+            </linearGradient>
+          </defs>
+          <!-- Mug body -->
+          <path d="M30 50 L35 190 L125 190 L130 50 Z" rx="4" fill="url(#glass1)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+          <!-- Beer fill -->
+          <path d="M34 75 L37 188 L123 188 L126 75 Z" fill="url(#amber1)" opacity="0.85"/>
+          <!-- Foam -->
+          <ellipse cx="80" cy="76" rx="47" ry="20" fill="rgba(255,253,248,0.95)"/>
+          <ellipse cx="55" cy="68" rx="24" ry="14" fill="rgba(255,253,248,0.85)"/>
+          <ellipse cx="105" cy="70" rx="20" ry="12" fill="rgba(255,253,248,0.75)"/>
+          <!-- Handle -->
+          <path d="M130 90 Q168 90 168 130 Q168 170 130 170" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="14" stroke-linecap="round"/>
+          <!-- Shine -->
+          <line x1="44" y1="60" x2="48" y2="178" stroke="rgba(255,255,255,0.25)" stroke-width="6" stroke-linecap="round"/>
+          <!-- Bubbles -->
+          <circle cx="65" cy="140" r="3" fill="rgba(255,200,60,0.5)"/>
+          <circle cx="90" cy="110" r="2" fill="rgba(255,200,60,0.4)"/>
+          <circle cx="105" cy="155" r="2.5" fill="rgba(255,200,60,0.45)"/>
+          <circle cx="75" cy="170" r="2" fill="rgba(255,200,60,0.4)"/>
+        </svg>
+      </div>
+      <div class="beer-info">
+        <span class="beer-badge">Ale · 5.8% ABV</span>
+        <h3 class="beer-name">Amber Harvest Ale</h3>
+        <p class="beer-desc">A warm, copper-hued ale kissed with caramel malt and a whisper of toasted oak. Fruity hop notes dance on the finish with a clean, satisfying bite.</p>
+        <div class="beer-abv">ABV 5.8% · IBU 28 · SRM 14</div>
+      </div>
+    </article>
+
+    <!-- Beer 2: Midnight Stout -->
+    <article class="beer-card">
+      <div class="beer-illustration">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" width="140" height="200">
+          <defs>
+            <linearGradient id="dark1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#3A1E0C"/>
+              <stop offset="100%" stop-color="#0D0604"/>
+            </linearGradient>
+          </defs>
+          <!-- Pint glass shape -->
+          <path d="M40 40 L28 188 L132 188 L120 40 Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+          <!-- Dark beer fill -->
+          <path d="M38 65 L28 186 L132 186 L122 65 Z" fill="url(#dark1)"/>
+          <!-- Tan foam head -->
+          <ellipse cx="80" cy="66" rx="43" ry="18" fill="rgba(180,140,80,0.95)"/>
+          <ellipse cx="55" cy="60" rx="20" ry="11" fill="rgba(190,150,90,0.85)"/>
+          <ellipse cx="108" cy="62" rx="18" ry="10" fill="rgba(175,135,75,0.8)"/>
+          <!-- Shine -->
+          <line x1="50" y1="52" x2="46" y2="176" stroke="rgba(255,255,255,0.12)" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="beer-info">
+        <span class="beer-badge">Stout · 7.2% ABV</span>
+        <h3 class="beer-name">Midnight Stout</h3>
+        <p class="beer-desc">Bold, velvety darkness. Rich layers of espresso, bittersweet chocolate, and a roasted barley depth that lingers long after the last sip — warming you from the inside out.</p>
+        <div class="beer-abv">ABV 7.2% · IBU 45 · SRM 40</div>
+      </div>
+    </article>
+
+    <!-- Beer 3: Golden Wheat Lager -->
+    <article class="beer-card">
+      <div class="beer-illustration">
+        <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" width="140" height="200">
+          <defs>
+            <linearGradient id="lager1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FADA5E"/>
+              <stop offset="100%" stop-color="#D4A017"/>
+            </linearGradient>
+          </defs>
+          <!-- Pilsner glass tall shape -->
+          <path d="M60 30 L45 188 L115 188 L100 30 Z" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+          <!-- Lager fill light golden -->
+          <path d="M58 60 L46 186 L114 186 L102 60 Z" fill="url(#lager1)" opacity="0.75"/>
+          <!-- Generous white foam -->
+          <ellipse cx="80" cy="60" rx="42" ry="22" fill="rgba(255,253,248,0.97)"/>
+          <ellipse cx="55" cy="50" rx="22" ry="14" fill="rgba(255,253,248,0.9)"/>
+          <ellipse cx="107" cy="52" rx="19" ry="13" fill="rgba(255,253,248,0.85)"/>
+          <ellipse cx="80" cy="42" rx="28" ry="12" fill="rgba(255,253,248,0.7)"/>
+          <!-- Shine bubbles -->
+          <circle cx="68" cy="120" r="2.5" fill="rgba(255,220,80,0.6)"/>
+          <circle cx="88" cy="100" r="2" fill="rgba(255,220,80,0.5)"/>
+          <circle cx="76" cy="155" r="2" fill="rgba(255,220,80,0.5)"/>
+          <!-- Shine -->
+          <line x1="66" y1="45" x2="62" y2="175" stroke="rgba(255,255,255,0.3)" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="beer-info">
+        <span class="beer-badge">Lager · 4.5% ABV</span>
+        <h3 class="beer-name">Golden Wheat Lager</h3>
+        <p class="beer-desc">Crisp, effervescent, and gloriously refreshing. Brewed with heirloom wheat and citrus peel for a light, zesty character perfect for any season — especially the sunny ones.</p>
+        <div class="beer-abv">ABV 4.5% · IBU 12 · SRM 3</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 3 — VISION / OUR STORY
+═══════════════════════════════════════ -->
+<section id="vision" aria-label="Our story and vision">
+  <div class="vision-inner">
+
+    <div class="vision-deco">
+      <div class="vision-deco-circle">
+        <div>
+          <div class="vision-year">1987</div>
+          <div class="vision-founded">Founded</div>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <svg viewBox="0 0 120 40" width="80" height="27" xmlns="http://www.w3.org/2000/svg" style="opacity:0.5;">
+          <path d="M10 20 Q30 5 60 20 Q90 35 110 20" stroke="#C8861A" stroke-width="1.5" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-label" style="text-align:left;">Our Story</p>
+      <div class="vision-rule"></div>
+      <h2 class="vision-title">Crafted with <em>Passion</em>,<br/>Poured with <em>Purpose</em></h2>
+
+      <p class="vision-text">
+        Copper & Grain was born in a small garage in Denver's Highland neighborhood, where founder Thomas Wren began experimenting with wild yeast strains and locally sourced grain. His obsession? Creating beers that feel like a warm conversation — unpretentious, honest, and worth returning to.
+      </p>
+
+      <div class="vision-quote">
+        "Great beer isn't just brewed — it's listened to. We follow the grain, the season, and the moment."
+      </div>
+
+      <p class="vision-text">
+        Nearly four decades later, our brewery stands on the same values that started it: local ingredients, slow fermentation, and the belief that a truly great pint should never be rushed. Every barrel we produce is a tribute to craftsmanship, community, and the simple joy of sharing something remarkable.
+      </p>
+
+      <p class="vision-text">
+        We partner with Colorado farmers, champion sustainable brewing practices, and invest in the neighborhoods that inspired us. Because great beer, like great community, is built one relationship at a time.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     SECTION 4 — REVIEWS
+═══════════════════════════════════════ -->
+<section id="reviews" aria-label="Customer reviews">
+  <p class="section-label">What People Say</p>
+  <h2 class="section-title">Loved by Beer Lovers</h2>
+
+  <div class="reviews-wrapper">
+    <button class="review-nav prev" id="prevBtn" aria-label="Previous review">&#8592;</button>
+    <button class="review-nav next" id="nextBtn" aria-label="Next review"    >&#8594;</button>
+
+    <div class="reviews-track-outer">
+      <div class="reviews-track" id="reviewsTrack">
+
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "The Midnight Stout is the best I've ever had. Rich, complex, and with just the right bitterness. I drove 40 miles just to have another pint — and I'd do it again without a second thought."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#5C3317,#8B4513);">MR</div>
+            <div>
+              <div class="review-name">Marcus Reynolds</div>
+              <div class="review-location">Boulder, CO · Craft Beer Enthusiast</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star-empty">★</span>
+          </div>
+          <p class="review-text">
+            "Copper & Grain has become our Friday night tradition. The atmosphere is warm, the staff genuinely knows their product, and the Amber Harvest Ale is always perfectly poured. Docking one star only because the patio closes too early!"
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#2C1A0E,#5C3317);">SL</div>
+            <div>
+              <div class="review-name">Sophie Laurent</div>
+              <div class="review-location">Denver, CO · Regular Customer</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "I'm not usually a beer person, but the Golden Wheat Lager changed everything for me. Light, refreshing, and slightly citrusy — I felt like I was sitting in a sunlit wheat field. Absolutely magical."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#C8861A,#E8A830);">AP</div>
+            <div>
+              <div class="review-name">Amanda Peralta</div>
+              <div class="review-location">Fort Collins, CO · First-time Visitor</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "As a homebrewer, I'm picky. Copper & Grain nails it at a craft level few achieve. The consistency batch-to-batch is remarkable. You can taste the care in every single pint. Thomas built something truly special here."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#8B4513,#C8861A);">DK</div>
+            <div>
+              <div class="review-name">Derek Kowalski</div>
+              <div class="review-location">Aurora, CO · Homebrewer & Judge</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 5 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star-empty">★</span><span class="star-empty">★</span>
+          </div>
+          <p class="review-text">
+            "Good beers, no doubt. The Amber Harvest is excellent. My experience was a bit rushed — they were slammed on a Saturday. Worth a revisit on a quieter evening. The space itself is beautiful and the brand story is compelling."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#3A1E0C,#5C3317);">TR</div>
+            <div>
+              <div class="review-name">Tina Romero</div>
+              <div class="review-location">Colorado Springs, CO</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 6 -->
+        <div class="review-card">
+          <div class="review-stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="review-text">
+            "We hosted our company's annual retreat here — 35 people — and the team at Copper & Grain absolutely delivered. Private tasting session, personalized flight boards, expert guidance from the brew master. Best event we've had in years."
+          </p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#C8861A,#8B4513);">JM</div>
+            <div>
+              <div class="review-name">James McKinley</div>
+              <div class="review-location">Denver, CO · Events Manager</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /reviews-track -->
+    </div><!-- /reviews-track-outer -->
+
+    <div class="reviews-dots" id="reviewsDots" role="tablist" aria-label="Review navigation"></div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer id="footer" aria-label="Footer">
+  <div class="footer-grid">
+
+    <!-- Brand col -->
+    <div class="footer-brand">
+      <a href="#presentation" class="logo">Copper <span>&</span> Grain</a>
+      <p class="footer-tagline">Hand-crafted beer with soul, brewed in Denver's Highland neighborhood since 1987. Come thirsty, leave inspired.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" aria-label="Instagram">IG</a>
+        <a href="#" class="social-btn" aria-label="Facebook" >FB</a>
+        <a href="#" class="social-btn" aria-label="Twitter"  >TW</a>
+        <a href="#" class="social-btn" aria-label="Untappd"  >UT</a>
+      </div>
+    </div>
+
+    <!-- Explore col -->
+    <div>
+      <div class="footer-heading">Explore</div>
+      <ul class="footer-links">
+        <li><a href="#presentation">Home</a></li>
+        <li><a href="#beers"       >Our Beers</a></li>
+        <li><a href="#vision"      >Our Story</a></li>
+        <li><a href="#reviews"     >Reviews</a></li>
+        <li><a href="#"            >Events</a></li>
+        <li><a href="#"            >Shop Merch</a></li>
+      </ul>
+    </div>
+
+    <!-- Visit col -->
+    <div>
+      <div class="footer-heading">Visit Us</div>
+      <ul class="footer-links">
+        <li><a href="#">Taproom Hours</a></li>
+        <li><a href="#">Brewery Tours</a></li>
+        <li><a href="#">Private Events</a></li>
+        <li><a href="#">Distribution</a></li>
+        <li><a href="#">Wholesale</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact col -->
+    <div class="footer-contact">
+      <div class="footer-heading">Contact</div>
+      <p><span>📍</span> 2847 Copper Hill Lane,<br/>Denver, CO 80211</p>
+      <p><span>📞</span> (720) 555-0182</p>
+      <p><span>✉️</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6109040d0d0e21020e11110413000f05061300080f4f020e0c">[email&#160;protected]</a></p>
+      <p><span>🕐</span> Mon–Thu: 3pm–11pm<br/>Fri–Sat: 12pm–1am<br/>Sun: 12pm–10pm</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 Copper & Grain Brewing Co. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service · Accessibility</span>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ── Header scroll effect ── */
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header.style.background = window.scrollY > 60
+      ? 'rgba(44,26,14,0.98)'
+      : 'rgba(44,26,14,0.95)';
+  });
+
+  /* ── Reviews slider ── */
+  const track   = document.getElementById('reviewsTrack');
+  const dotsEl  = document.getElementById('reviewsDots');
+  const cards   = track.querySelectorAll('.review-card');
+  const total   = cards.length;
+  let current   = 0;
+
+  // Build dots
+  cards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `Review ${i + 1}`);
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function goTo(idx) {
+    current = (idx + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  // Auto-advance
+  setInterval(() => goTo(current + 1), 6000);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  track.addEventListener('touchend',   e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+  });
+
+
+  /* ── Scroll-reveal for beer cards ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity    = '1';
+        e.target.style.transform  = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.beer-card').forEach((card, i) => {
